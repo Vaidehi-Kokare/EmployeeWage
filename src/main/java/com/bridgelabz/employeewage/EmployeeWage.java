@@ -11,7 +11,7 @@ public class EmployeeWage {
         System.out.println("Welcome to Employee Wage Computation Program");
         int att = (int) (Math.random() * 10) % 3;
         int wage=0,total_wage=0;
-        for (int i = 1; i<=WAGE_PER_HOUR; i++) {
+        for (int i = 1; i<=WORKING_DAYS_PER_MONTH; i++) {
             switch (att) {
                 case IS_FULLTIME:
                     wage = FULL_HOURS * WAGE_PER_HOUR;
