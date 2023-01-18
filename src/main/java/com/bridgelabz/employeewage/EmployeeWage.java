@@ -8,8 +8,7 @@ public class EmployeeWage {
     public static final int WAGE_PER_HOUR = 20;
     public static final int WORKING_DAYS_PER_MONTH = 20;
     public static final int MAX_WORKING_DAYS = 100;
-    public static void main(String[] args) {
-        System.out.println("Welcome to Employee Wage Computation Program");
+    void calculateEmployeeWage() {
         int wage=0,total_wage=0,days=0,maxHours=0;
         while (days<=WORKING_DAYS_PER_MONTH && maxHours <MAX_WORKING_DAYS) {
             int att = (int) (Math.random() * 10) % 3;
@@ -22,8 +21,6 @@ public class EmployeeWage {
                     wage = PART_HOURS * WAGE_PER_HOUR;
                     maxHours +=PART_HOURS;
                     break;
-                default:
-                    System.out.println("Employee is Absent");
             }
             total_wage += wage;
             days++;
@@ -31,5 +28,10 @@ public class EmployeeWage {
         System.out.println("Monthly Wage is " + total_wage);
         System.out.println("Number of days worked: " + days);
         System.out.println("Number of hours worked: " + maxHours);
+    }
+    public static void main(String[] args) {
+        System.out.println("Welcome to Employee Wage Computation Program");
+        EmployeeWage employeewage = new EmployeeWage();
+        employeewage.calculateEmployeeWage();
     }
 }
