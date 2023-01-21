@@ -1,25 +1,31 @@
 package com.bridgelabz.employeewage;
-
 public class EmployeeWage {
     public static final int  IS_PARTTIME = 1;
     public static final int IS_FULLTIME = 2;
-    public static final int FULL_HOURS = 12;
-    public static final int PART_HOURS = 8;
-    public static final int WAGE_PER_HOUR = 20;
-    public static final int WORKING_DAYS_PER_MONTH = 20;
-    public static final int MAX_WORKING_DAYS = 100;
+    int fullHours;
+    int partHours;
+    int wagePerHour;
+    int workingDaysPerMonth;
+    int maxWorkingDays;
+    EmployeeWage(int fullHours, int partHours, int wagePerHour,int maxWorkingDays,int workingDaysPerMonth) {
+        this.fullHours = fullHours;
+        this.partHours = partHours;
+        this.wagePerHour = wagePerHour;
+        this.maxWorkingDays = maxWorkingDays;
+        this.workingDaysPerMonth = workingDaysPerMonth;
+    }
     void calculateEmployeeWage() {
         int wage=0,total_wage=0,days=0,maxHours=0;
-        while (days<=WORKING_DAYS_PER_MONTH && maxHours <MAX_WORKING_DAYS) {
+        while (days<= workingDaysPerMonth && maxHours < maxWorkingDays) {
             int att = (int) (Math.random() * 10) % 3;
             switch (att) {
                 case IS_FULLTIME:
-                    wage = FULL_HOURS * WAGE_PER_HOUR;
-                    maxHours +=FULL_HOURS;
+                    wage = fullHours * wagePerHour;
+                    maxHours += fullHours;
                     break;
                 case IS_PARTTIME:
-                    wage = PART_HOURS * WAGE_PER_HOUR;
-                    maxHours +=PART_HOURS;
+                    wage = partHours * wagePerHour;
+                    maxHours += partHours;
                     break;
             }
             total_wage += wage;
@@ -31,7 +37,11 @@ public class EmployeeWage {
     }
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
-        EmployeeWage employeewage = new EmployeeWage();
-        employeewage.calculateEmployeeWage();
+        EmployeeWage Company1 = new EmployeeWage(12,8,20,100,25);
+        Company1.calculateEmployeeWage();
+        EmployeeWage Company2 = new EmployeeWage(10,6,15,100,26);
+        Company2.calculateEmployeeWage();
+        EmployeeWage Company3 = new EmployeeWage(12,10,20,120,20);
+        Company3.calculateEmployeeWage();
     }
 }
