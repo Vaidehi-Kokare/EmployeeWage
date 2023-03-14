@@ -1,64 +1,61 @@
 package com.bridgelabz.employeewage;
-public class EmployeeWage {
+
+public class EmployeeWage implements IEmployeeWageCalculator {
     public static final int IS_PARTTIME = 1;
     public static final int IS_FULLTIME = 2;
-    private int numOfCompanies;
-    private CompanyEmployeeWage[] companyEmpWageArray;
+    private String name;
+    private int wagePerHour;
+    private int maxWorkingDays;
+    private int maxWorkingHours;
+    private int fullHours;
+    private int partHours;
+    private int totalEmpWage;
 
-    public EmployeeWage() {
-        companyEmpWageArray = new CompanyEmployeeWage[5];
-        numOfCompanies = 0;
-    }
-
-    public void addEmployeeWage(String company, int fullTimeHrs, int partTimeHrs, int wagePerHour, int maxWorkingDays, int workingDaysPerMonth) {
-        CompanyEmployeeWage companyEmpWage = new CompanyEmployeeWage(company, wagePerHour, maxWorkingDays, workingDaysPerMonth, fullTimeHrs, partTimeHrs);
-        companyEmpWageArray[numOfCompanies] = companyEmpWage;
-        numOfCompanies++;
+    public EmployeeWage(String name, int wagePerHour, int maxWorkingDays, int maxWorkingHours, int fullHours, int partHours) {
+        this.name = name;
+        this.wagePerHour = wagePerHour;
+        this.maxWorkingDays = maxWorkingDays;
+        this.maxWorkingHours = maxWorkingHours;
+        this.fullHours = fullHours;
+        this.partHours = partHours;
     }
 
     public void calculateEmployeeWage() {
-        for (int i = 0; i < numOfCompanies; i++) {
-            CompanyEmployeeWage companyEmpWage = companyEmpWageArray[i];
-            int totalEmpWage = 0;
-            int totalWorkingDays = 0;
-            int totalWorkingHrs = 0;
-            while (totalWorkingDays < companyEmpWage.workingDaysPerMonth && totalWorkingHrs < companyEmpWage.maxWorkingDays) {
-                int empHrs = 0;
-                int empCheck = (int) Math.floor(Math.random() * 10) % 3;
-                switch (empCheck) {
-                    case IS_PARTTIME:
-                        empHrs = companyEmpWage.partTimeHrs;
-                        break;
-                    case IS_FULLTIME:
-                        empHrs = companyEmpWage.fullTimeHrs;
-                        break;
-                    default:
-                        empHrs = 0;
-                }
-                int empWage = empHrs * companyEmpWage.wagePerHour;
-                totalEmpWage += empWage;
-                totalWorkingDays++;
-                totalWorkingHrs += empHrs;
+        int totalWage = 0, days = 0, hours = 0;
+        while (days < maxWorkingDays && hours < maxWorkingHours) {
+            int empType = (int) (Math.random() * 10) % 3;
+            switch (empType) {
+                case IS_FULLTIME:
+                    hours += fullHours;
+                    break;
+                case IS_PARTTIME:
+                    hours += partHours;
+                    break;
+                default:
+                    break;
             }
-            companyEmpWage.setTotalEmpWage(totalEmpWage);
+            days++;
         }
+        totalEmpWage = hours * wagePerHour;
     }
 
     public void printTotalEmpWage() {
-        for (int i = 0; i < numOfCompanies; i++) {
-            CompanyEmployeeWage companyEmpWage = companyEmpWageArray[i];
-            System.out.println("Total Employee Wage for Company " + companyEmpWage.company + " is " + companyEmpWage.totalEmpWage);
-        }
+        System.out.println("Total Employee Wage for Company " + name + " is " + totalEmpWage);
     }
 
     public static void main(String[] args) {
         System.out.println("Welcome to Employee Wage Computation Program");
-        EmployeeWage employeeWage = new EmployeeWage();
-        employeeWage.addEmployeeWage("Company1", 12, 8, 20, 100, 25);
-        employeeWage.addEmployeeWage("Company2", 10, 6, 15, 100, 26);
-        employeeWage.addEmployeeWage("Company3", 12, 10, 20, 120, 20);
-        employeeWage.calculateEmployeeWage();
-        employeeWage.printTotalEmpWage();
+        EmployeeWage employeeWage1 = new EmployeeWage("Company1", 20, 25, 100, 12, 8);
+        EmployeeWage employeeWage2 = new EmployeeWage("Company2", 15, 26, 100, 10, 6);
+        EmployeeWage employeeWage3 = new EmployeeWage("Company3", 20, 20, 120, 12, 10);
+
+        employeeWage1.calculateEmployeeWage();
+        employeeWage1.printTotalEmpWage();
+
+        employeeWage2.calculateEmployeeWage();
+        employeeWage2.printTotalEmpWage();
+
+        employeeWage3.calculateEmployeeWage();
+        employeeWage3.printTotalEmpWage();
     }
 }
-
